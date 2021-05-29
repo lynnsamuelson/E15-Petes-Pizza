@@ -17,9 +17,37 @@ const database = {
     {id: 2, size: "Medium", price: 15.00 },
     {id: 3, size: "Large", price: 20.00}
   ],
-  orders: {}
+  orders: [
+    {
+      id: 1,
+      crustId: 2,
+      toppingId: 3,
+      sizeId: 2
+    }
+  ],
+  orderBuilder: { }
 }
 
 export const getCrusts = () => {
   return database.crusts.map(crust =>({...crust}))
+}
+
+export const setCrust = (id) => {
+  database.orderBuilder.crustId = id
+}
+
+export const getOrders = () => {
+  return database.orders.map(order => ({...order}))
+}
+
+export const addCustomerOrder = () => {
+  const newOrder = {...database.orderBuilder}
+
+  const lastIndex = database.orders.length - 1
+  newOrder.id = database.orders[lastIndex].id + 1
+
+  database.orders.push(newOrder)
+  database.orderBuilder = {}
+
+  document.dispatchEvent(new CustomEvent("stateChanged"))
 }

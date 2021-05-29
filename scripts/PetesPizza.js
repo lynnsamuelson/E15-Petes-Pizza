@@ -1,6 +1,16 @@
 import {Crust} from "./Crust.js"
+import {Orders} from "./Orders.js"
+import {addCustomerOrder} from "./database.js"
 
 const crusts = Crust()
+ document.addEventListener(
+   "click",
+   (event) => {
+     if(event.target.id === "orderPizza"){
+       addCustomerOrder()
+     }
+   }
+ )
 
 export const PetesPizza = () => {
   return `
@@ -15,6 +25,13 @@ export const PetesPizza = () => {
       </section>
       <section class="size_choices">
         <h2>Size</h2>
+      </section>
+      <section>
+        <button id="orderPizza">Create Pizza</button>
+      </section>
+      <section class="orders">
+        <h2>Orders</h2>
+        ${Orders()}
       </section>
     </article>
   `
